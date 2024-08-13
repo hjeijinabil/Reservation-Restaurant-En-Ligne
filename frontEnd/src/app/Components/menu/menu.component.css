@@ -1,0 +1,6 @@
+.gallery-single img {
+    width: 100%; /* Make image fill the container */
+    height: 100%; /* Set a fixed height */
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+  }
+  

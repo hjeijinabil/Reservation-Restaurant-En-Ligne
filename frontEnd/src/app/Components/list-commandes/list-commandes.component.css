@@ -1,0 +1,87 @@
+.table  {
+    margin-left: 20px; /* Adjust the value as needed */
+  }/* Styles de base pour le tableau */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  display: table;
+}
+
+/* Styles généraux pour les cellules */
+.table th, .table td {
+  padding: 12px;
+  text-align: left;
+}
+
+/* Styles pour les écrans moyens et grands */
+@media (min-width: 769px) {
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .table th, .table td {
+    padding: 12px;
+  }
+}
+
+/* Styles pour les écrans mobiles */
+@media (max-width: 768px) {
+  .table {
+    display: block;
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .table thead {
+    display: none;
+  }
+
+  .table tbody {
+    display: block;
+    width: 100%;
+  }
+
+  .table tr {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .table td {
+    display: block;
+    width: 100%;
+    text-align: right;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 40%;
+    padding-left: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #333;
+    background: #f9f9f9;
+    border-right: 1px solid #ddd;
+    box-sizing: border-box;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+  }
+
+  .table td:last-child {
+    border-bottom: 0;
+  }
+}
+
