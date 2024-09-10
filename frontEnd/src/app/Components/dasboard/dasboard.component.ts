@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { UserServiceService } from 'src/app/user-service.service';
 
 @Component({
   selector: 'app-dasboard',
@@ -10,7 +12,8 @@ export class DasboardComponent implements OnInit {
 
   lang:string ='';
 
-  constructor(private translateService:TranslateService){
+
+  constructor(private translateService:TranslateService, private router: Router, private userService: UserServiceService){
     
   }
   ngOnInit(): void {
@@ -18,7 +21,10 @@ export class DasboardComponent implements OnInit {
     this.lang = localStorage.getItem('lang') || 'en';
     // Apply the language setting
     this.translateService.use(this.lang);
+  
+
   }
+ 
 
   ChangeLang(lang: any): void {
     const selectedLanguage = lang.target.value;

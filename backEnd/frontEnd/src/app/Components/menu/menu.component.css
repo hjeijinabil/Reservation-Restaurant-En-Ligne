@@ -1,0 +1,203 @@
+/* General container styles */
+.menu-box {
+    padding: 60px 0;
+    background-color: #f8f8f8;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+  
+  .menu-box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(240, 240, 240, 0.3));
+    z-index: -1;
+  }
+  
+  .heading-title {
+    margin-bottom: 30px;
+  }
+  
+  .heading-title h2 {
+    font-size: 40px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+  }
+  
+  .heading-title h2::after {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 4px;
+    background-color: #e74c3c;
+    margin: 10px auto;
+    border-radius: 2px;
+  }
+  
+  /* Button group for filtering items */
+  .filter-button-group {
+    margin-bottom: 30px;
+  }
+  
+  .filter-button-group button {
+    border: 2px solid #333;
+    padding: 10px 25px;
+    margin: 5px;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+    border-radius: 25px;
+  }
+  
+  .filter-button-group button:hover,
+  .filter-button-group button:focus {
+    background-color: #333;
+    color: #fff;
+    transform: translateY(-2px);
+  }
+  
+  /* Styles for the special list items */
+  .special-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .special-grid {
+    margin-bottom: 30px;
+    padding: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .special-grid:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Styles for the gallery items */
+  .gallery-single {
+    border: 1px solid #eaeaea;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+  }
+  
+  .gallery-single img {
+    width: 70%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+  }
+  
+  .gallery-single:hover img {
+    transform: scale(1.1);
+  }
+  
+  /* Text section of the gallery items */
+  .why-text {
+    padding: 20px;
+    background-color: #fff;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .why-text h4 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .why-text p {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 15px;
+  }
+  
+  .why-text h5 {
+    font-size: 20px;
+    color: #e74c3c;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  /* Cart buttons styles */
+  .cart-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+  }
+  
+  .cart-buttons button {
+    border: 1px solid #333;
+    padding: 5px 10px;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+    border-radius: 50%;
+  }
+  
+  .cart-buttons button:hover {
+    background-color: #333;
+    color: #fff;
+    transform: scale(1.1);
+  }
+  
+  .cart-buttons span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    width: 30px;
+    display: inline-block;
+    text-align: center;
+  }
+  
+  /* Total price and order button styles */
+  .text-center h3 {
+    font-size: 26px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 30px;
+  }
+  
+  .place-order-button {
+    margin-top: 20px;
+    padding: 12px 35px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #e74c3c;
+    border: none;
+    color: #fff;
+    border-radius: 30px;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .place-order-button:hover {
+    background-color: #d62c1a;
+    transform: scale(1.05);
+  }
+  
+  .place-order-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  

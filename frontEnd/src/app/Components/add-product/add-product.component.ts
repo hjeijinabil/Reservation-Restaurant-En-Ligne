@@ -15,8 +15,16 @@ export class AddProductComponent {
     price: null,
     image: null
   };
+  categories: string[] = ['MENUS', 'MIXORINI', 'MIXORINI MAX'];
+  productt = {
+    category: ''
+  };
 
   constructor(private apiService: AddProductService) {}
+  onCategoryChange(category: string): void {
+    // Handle logic when the category is changed
+    console.log(`Category selected: ${category}`);
+  }
 
   onFileChange(event: any) {
     if (event.target.files && event.target.files[0]) {

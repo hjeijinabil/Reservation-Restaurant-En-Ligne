@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { jwtDecode } from 'jwt-decode';
 import { UserServiceService } from 'src/app/user-service.service';
@@ -9,27 +10,34 @@ import { UserServiceService } from 'src/app/user-service.service';
   styleUrls: ['./headerr.component.css']
 })
 export class HeaderrComponent implements OnInit {
-  lang:string ='';
+  lang: string = '';
   isLoggedIn: boolean = false;
-  userName: string = '';  // Initialize with an empty string
+  userName: string = '';
 
-  constructor(private translateService:TranslateService, private userservice : UserServiceService){
-    
-  }
+  constructor(
+    private translateService: TranslateService,
+    private userservice: UserServiceService,
+    private router: Router
+  ) {}
+
   ngOnInit(): void {
-    // Retrieve the language from localStorage or default to 'en'
     this.lang = localStorage.getItem('lang') || 'en';
-    // Apply the language setting
     this.translateService.use(this.lang);
 
     this.isLoggedIn = this.userservice.isAuthenticated();
 
-    this.setUserName(); 
+    // If the user is authenticated, refresh the component to display the username
+    if (this.isLoggedIn) {
+      this.refreshComponent();
+    }
+    this.setUserName();
+  
   }
+
   setUserName(): void {
     const token = localStorage.getItem('token');
-    console.log("token", token);
-    
+    console.log('token', token);
+
     if (token) {
       try {
         const decodedToken: any = jwtDecode(token);
@@ -41,19 +49,22 @@ export class HeaderrComponent implements OnInit {
       console.log('No token found');
     }
   }
+
   ChangeLang(lang: any): void {
     const selectedLanguage = lang.target.value;
-    // Save the selected language to localStorage
     localStorage.setItem('lang', selectedLanguage);
-    // Change the language in the translateService
     this.translateService.use(selectedLanguage);
   }
+
   onLogout(): void {
     this.userservice.logout();
-    this.isLoggedIn = false; // Mettre à jour l'état après la déconnexion
+    this.isLoggedIn = false;
+    // Redirect to home page after logout
+    this.router.navigate(['/']);
   }
- }
 
-
-
-
+  refreshComponent(): void {
+    // Use the router to navigate to the same route to refresh the component
+    this.router.navigate([this.router.url]);
+  }
+}

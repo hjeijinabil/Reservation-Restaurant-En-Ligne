@@ -1,0 +1,26 @@
+.row {
+    margin-left: 25px; /* Adjust the value as needed */
+  }
+  .card-body img {
+    max-width: 50%; /* Responsive width */
+    max-height: 200px; /* Optional maximum height */
+    width: auto; /* Maintain natural width */
+    height: auto; /* Maintain aspect ratio */
+    min-width: 50px; /* Ensure a minimum width */
+    min-height: 50px; /* Ensure a minimum height */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth scaling and shadow effect */
+}
+
+.profile-img41 img {
+  max-width: 400%; /* Responsive width */
+  max-height: 400px; /* Optional maximum height */
+  width: auto; /* Maintain natural width */
+  height: auto; /* Maintain aspect ratio */
+  min-width: 300px; /* Ensure a minimum width */
+  min-height: 300px; /* Ensure a minimum height */
+  border-radius: 6px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth scaling and shadow effect */
+}

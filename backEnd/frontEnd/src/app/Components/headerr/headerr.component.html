@@ -1,0 +1,62 @@
+<header class="top-navbar">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="../assets/images/favicon.png" alt="" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-rs-food" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbars-rs-food">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active"><a class="nav-link" href="/">{{'Home' | translate}}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="menu">{{'Menu' | translate}}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="galeroy">{{'Galeroy' | translate}}</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-bs-toggle="dropdown" aria-expanded="false">{{'Languages' | translate}}</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown-a">
+                            <div class="dropdown-item">
+                                <select class="form-select" (change)="ChangeLang($event)" [(ngModel)]="lang" name="language" id="language-select">
+                                    <option value="ar">{{ 'arabe' | translate }}</option>
+                                    <option value="fr">{{ 'French' | translate }}</option>
+                                    <option value="en">{{ 'English' | translate }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <li class="nav-item"><a class="nav-link" href="login" *ngIf="!isLoggedIn">{{'Login' | translate}}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="registre" *ngIf="!isLoggedIn">{{'Registre' | translate}}</a></li>
+                    <li class="nav-item nav-item-margin">
+                        <ul class="navbar-nav ms-auto align-items-center navbar-list mb-2 mb-lg-0" *ngIf="isLoggedIn">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="../assets/images/avatars/7.jpg" alt="User-Profile" class="img-fluid avatar avatar-50 avatar-rounded">
+                                    <div class="caption ms-3 d-none d-md-block">
+                                        <p class="mb-0 caption-sub-title">{{ userName }}</p>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <li><hr class="dropdown-divider"></li>
+                                    <button (click)="onLogout()">
+                                        <li><a class="dropdown-item">{{'Logout' | translate}}</a></li>
+                                    </button>
+                                    <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                                        <li class="nav-item">
+                                            <select class="form-select" (change)="ChangeLang($event)" name="" id="" value ="Langues">
+                                                <option [selected]="lang==='ar'" value="ar">{{'arabe' | translate}}</option>
+                                                <option [selected]="lang==='fr'" value="fr">{{'French' | translate}}</option>
+                                                <option [selected]="lang==='en'" value="en">{{'English' | translate}}</option>
+                                            </select>
+                                        </li>
+                                    </ul>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
