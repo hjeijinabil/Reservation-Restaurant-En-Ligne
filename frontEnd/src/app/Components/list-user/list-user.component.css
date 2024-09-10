@@ -2,24 +2,10 @@
     margin-left: 60px; /* Adjust the value as needed */
   }
 /* Styles généraux pour la carte et le tableau */
-.card {
-  border: 0.1rem solid #e0e0e0;
-  border-radius: 0.375rem;
-  margin-bottom: 1rem;
-}
-
-.card-header {
-  background-color: #f8f9fa;
-  padding: 1rem;
-}
-
-.card-body {
-  padding: 1rem;
-}
-
 /* Conteneur de tableau responsive */
 .table-responsive {
   overflow-x: auto;
+  margin-top: 5rem; /* Ajustez la valeur selon vos besoins */
 }
 
 /* Style de base pour le tableau */

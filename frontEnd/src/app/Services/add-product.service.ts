@@ -12,8 +12,8 @@ export class AddProductService {
 
   constructor(private http: HttpClient) {}
 
-  addProduct(product: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, product);
+  addProduct(formData: FormData): Observable<any> {
+    return this.http.post<any>(this.apiUrl, formData);
   }
   getProducts(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
@@ -29,5 +29,8 @@ export class AddProductService {
   updateProduct(productId: string, productData: any): Observable<any> {
     const url = `${this.apiUrl}/${productId}`;
     return this.http.put<any>(url, productData);
+  }
+  getMenuItems(category: string = 'all'): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}?category=${category}`);
   }
 }

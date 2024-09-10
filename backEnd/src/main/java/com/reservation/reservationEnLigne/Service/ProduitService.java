@@ -27,4 +27,8 @@ public class ProduitService {
     public void deleteProduit(Long id) {
         produitRepository.deleteById(id);
     }
+    public List<Produit> getAllMenuItems() {
+        return produitRepository.findAll();
+    }
+
 }

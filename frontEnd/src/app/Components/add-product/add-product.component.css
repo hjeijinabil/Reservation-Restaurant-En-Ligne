@@ -10,3 +10,7 @@
     width: 100%; /* Ensure the card takes full width of the container */
     max-width: 800px; /* Adjust the max width as needed */
 }
+.card-body{
+    margin-left: 80px;
+    margin-top: 150px;
+}

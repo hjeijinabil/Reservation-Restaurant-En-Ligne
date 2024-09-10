@@ -37,6 +37,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/auth/register").permitAll() // Allow unauthenticated access to auth registration
                         .requestMatchers("/auth/login").permitAll() // Allow unauthenticated access to auth registration
+                        .requestMatchers("/commandes/**").permitAll() // Allow unauthenticated access to auth registration
+                        .requestMatchers("/employees/**").permitAll() // Allow unauthenticated access to auth registration
+                        .requestMatchers("/products/**").permitAll() // Allow unauthenticated access to auth registration
+                        .requestMatchers("/images/**").permitAll() // Allow access to images
 
                         .requestMatchers("/admin/**").hasRole("ADMIN") // Restrict access to admin endpoints
                         .requestMatchers("/user/**").hasRole("USER") // Restrict access to user endpoints

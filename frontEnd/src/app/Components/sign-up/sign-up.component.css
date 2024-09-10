@@ -1,3 +1,6 @@
 .row {
     margin-left: 70px; /* Adjust the value as needed */
   }
+.img-fluid {
+  margin-top: 100px;
+}

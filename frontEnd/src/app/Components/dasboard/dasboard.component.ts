@@ -26,5 +26,7 @@ export class DasboardComponent implements OnInit {
     localStorage.setItem('lang', selectedLanguage);
     // Change the language in the translateService
     this.translateService.use(selectedLanguage);
+    // Refresh the page to apply language changes
+    window.location.reload();
   }
 }

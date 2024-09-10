@@ -1,8 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommandeService } from 'src/app/Services/commande.service';
+import { OrderService } from 'src/app/Services/order.service';
 // Déclarez ou importez l'interface Order
 export interface Order {
-  id: number;
+  id: number; // Make id optional to handle cases where it might be undefined
   clientName: string;
   clientEmail: string;
   clientPhone: string;
@@ -20,12 +21,19 @@ export interface Order {
 export class ListCommandesComponent  implements OnInit {
   orders: Order[] = [];
 
-  constructor(private orderService: CommandeService) {}
+  constructor(private orderService: OrderService) {}
 
   ngOnInit(): void {
-    this.orderService.getOrders().subscribe((orders) => {
-      this.orders = orders;
-    });
+    this.loadOrders();
+  }
+
+  loadOrders(): void {
+    this.orderService.getOrders().subscribe(
+      (orders: Order[]) => {
+        this.orders = orders;
+      },
+      (error) => console.error('Error loading orders:', error)
+    );
   }
 
   deleteOrder(orderId: number): void {
@@ -34,12 +42,14 @@ export class ListCommandesComponent  implements OnInit {
     });
   }
   updateOrderStatus(orderId: number, newStatus: string): void {
-    this.orderService.updateOrderStatus(orderId, newStatus).subscribe(() => {
-      const order = this.orders.find(o => o.id === orderId);
-      if (order) {
-        order.status = newStatus;
+    this.orderService.updateOrderStatus(orderId, newStatus).subscribe(
+      () => {
+        this.loadOrders(); // Reload orders after updating status
+      },
+      (error: any) => { // Explicitly defining error type
+        console.error('Error updating order status:', error);
       }
-    });
+    );
   }
 }
 

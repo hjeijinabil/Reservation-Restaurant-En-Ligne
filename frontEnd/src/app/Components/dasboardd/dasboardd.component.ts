@@ -9,6 +9,7 @@ import { UserServiceService } from 'src/app/user-service.service';
   styleUrls: ['./dasboardd.component.css']
 })
 export class DasboarddComponent implements OnInit {
+  isAdmin: boolean = false;
 
   lang:string ='';
   isLoggedIn: boolean = false;
@@ -18,6 +19,8 @@ export class DasboarddComponent implements OnInit {
     
   }
   ngOnInit(): void {
+    this.isAdmin = this.userservice.isAdmin();
+
     // Retrieve the language from localStorage or default to 'en'
     this.lang = localStorage.getItem('lang') || 'en';
     // Apply the language setting

@@ -25,8 +25,8 @@
                         </div>
                     </li>
                     
-                    <li class="nav-item"><a class="nav-link" href="login" *ngIf="!isLoggedIn">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="registre" *ngIf="!isLoggedIn">Registre</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login" *ngIf="!isLoggedIn">{{'Login' | translate}}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="registre" *ngIf="!isLoggedIn">{{'Registre' | translate}}</a></li>
                     <li class="nav-item nav-item-margin">
                         <ul class="navbar-nav ms-auto align-items-center navbar-list mb-2 mb-lg-0" *ngIf="isLoggedIn">
                             <li class="nav-item dropdown">
