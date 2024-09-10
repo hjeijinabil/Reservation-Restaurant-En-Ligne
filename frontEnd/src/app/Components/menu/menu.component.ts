@@ -48,9 +48,8 @@ export class MenuComponent implements OnInit {
   loadMenuItems(category: string = 'all'): void {
     this.productService.getMenuItems(category).subscribe(
       (items) => {
-        console.log('Loaded items:', items);
         this.filteredItems = items;
-        this.selectedCategory = category; // Set the selected category
+        this.selectedCategory = category; // Mettez à jour la catégorie sélectionnée
       },
       (error) => {
         console.error('Error loading menu items:', error);
@@ -59,9 +58,10 @@ export class MenuComponent implements OnInit {
   }
 
   filterItems(category: string): void {
-    this.selectedCategory = category; // Update selected category
+    this.selectedCategory = category; // Mettez à jour la catégorie sélectionnée
     this.loadMenuItems(category);
   }
+  
 
   addToCart(item: any): void {
     if (this.cart[item.name]) {

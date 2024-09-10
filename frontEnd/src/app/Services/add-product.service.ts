@@ -30,7 +30,8 @@ export class AddProductService {
     const url = `${this.apiUrl}/${productId}`;
     return this.http.put<any>(url, productData);
   }
+  // Récupérer les produits par catégorie
   getMenuItems(category: string = 'all'): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}?category=${category}`);
+    return this.http.get<any[]>(`${this.apiUrl}/by-category?category=${category}`);
   }
 }

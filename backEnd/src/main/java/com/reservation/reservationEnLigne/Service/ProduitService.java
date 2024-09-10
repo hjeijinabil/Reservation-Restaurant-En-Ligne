@@ -30,5 +30,11 @@ public class ProduitService {
     public List<Produit> getAllMenuItems() {
         return produitRepository.findAll();
     }
-
+    public List<Produit> getProduitsByCategory(String category) {
+        if ("all".equalsIgnoreCase(category)) {
+            return produitRepository.findAll();
+        } else {
+            return produitRepository.findByCategory(category);
+        }
+    }
 }

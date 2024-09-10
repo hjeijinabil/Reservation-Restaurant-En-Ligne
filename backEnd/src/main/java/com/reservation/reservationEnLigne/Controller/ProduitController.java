@@ -4,6 +4,8 @@ import com.reservation.reservationEnLigne.Entity.Produit;
 import com.reservation.reservationEnLigne.Service.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -84,6 +86,11 @@ public class ProduitController {
         } else {
             throw new RuntimeException("Product not found with id " + id);
         }
+    }
+    @GetMapping("/by-category")
+    public ResponseEntity<List<Produit>> getProduitsByCategory(@RequestParam(defaultValue = "all") String category) {
+        List<Produit> produits = produitService.getProduitsByCategory(category);
+        return new ResponseEntity<>(produits, HttpStatus.OK);
     }
 
 }
