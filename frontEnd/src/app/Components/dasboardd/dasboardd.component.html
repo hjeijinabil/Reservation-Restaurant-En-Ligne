@@ -1,5 +1,5 @@
 
-
+<app-headerr></app-headerr>
 <aside class="sidebar sidebar-default sidebar-hover sidebar-mini navs-pill-all " *ngIf="isAdmin" >
     <div class="sidebar-header d-flex align-items-center justify-content-start">
         
@@ -99,7 +99,7 @@
                                 <path d="M3.32156 13.5127C2.21752 13.7297 1.49225 14.1719 1.19139 14.8167C0.936203 15.3453 0.936203 15.9586 1.19139 16.4872C1.65163 17.4851 3.13531 17.8066 3.71195 17.8885C3.83104 17.9065 3.92595 17.8038 3.91342 17.6832C3.61883 14.9167 5.9621 13.6046 6.56918 13.3029C6.59425 13.2885 6.59962 13.2677 6.59694 13.2542C6.59515 13.2452 6.5853 13.2317 6.5656 13.2299C5.25294 13.2047 3.84358 13.3848 3.32156 13.5127Z" fill="currentColor"></path>
                             </svg>
                         </i>
-                        <span class="item-name">{{'Users'|translate}}</span>
+                        <span class="item-name">{{'Employées'|translate}}</span>
                         <i class="right-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -117,7 +117,7 @@
                                     </svg>
                                 </i>
                                 <i class="sidenav-mini-icon"> U </i>
-                                <span class="item-name">{{'User Profile'|translate}}</span>
+                                <span class="item-name">{{'Employée Profile'|translate}}</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -130,7 +130,7 @@
                                     </svg>
                                 </i>
                                 <i class="sidenav-mini-icon"> A </i>
-                                <span class="item-name">{{'Add User'|translate}}</span>
+                                <span class="item-name">{{'Add Employée'|translate}}</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -143,7 +143,7 @@
                                     </svg>
                                 </i>
                                 <i class="sidenav-mini-icon"> U </i>
-                                <span class="item-name">{{'User List'|translate}}</span>
+                                <span class="item-name">{{'Employée List'|translate}}</span>
                             </a>
                         </li>
                     </ul>
@@ -244,72 +244,3 @@
             </div>
     </div>
 </aside>    
-<main class="main-content">
-  <div class="position-relative">
-    <!--Nav Start-->
-    <nav class="nav navbar navbar-expand-lg navbar-light iq-navbar">
-      <div class="container-fluid navbar-inner">
-        <a href="" class="navbar-brand">
-           
-            
-        </a>
-        <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
-            <i class="icon">
-             <svg width="20px" height="20px" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" />
-            </svg>
-            </i>
-        </div>
-        <!-- <div class="input-group search-input">
-          <span class="input-group-text" id="search-input">
-            <svg width="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="11.7669" cy="11.7666" r="8.98856" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle>
-                <path d="M18.0186 18.4851L21.5426 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
-          </span>
-          <input type="search" class="form-control" placeholder=" {{'Search'|translate}}">
-        </div> -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon">
-              <span class="navbar-toggler-bar bar1 mt-2"></span>
-              <span class="navbar-toggler-bar bar2"></span>
-              <span class="navbar-toggler-bar bar3"></span>
-            </span>
-        </button>
-        <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ms-auto align-items-center navbar-list mb-2 mb-lg-0">
-           
-           
-            <li class="nav-item dropdown" *ngIf="!isLoggedIn">
-              <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="../assets/images/avatars/7.jpg" alt="User-Profile" class="img-fluid avatar avatar-50 avatar-rounded">
-                <div class="caption ms-3 d-none d-md-block ">
-                    <p class="mb-0 caption-sub-title">{{ userName }}</p>
-
-                </div>
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-               
-                <li><hr class="dropdown-divider"></li>
-                <button (click)="onLogout()"> <li><a class="dropdown-item" href="header">{{'Logout'|translate}}</a></li></button>
-                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        
-                        <select class="form-select" (change)="ChangeLang($event)" name="" id="">
-                            <option [selected]="lang==='ar'" value="ar">{{'arabe'|translate}}</option>
-                            <option [selected]="lang==='fr'" value="fr">{{'French'|translate}}</option>
-                            <option [selected]="lang==='en'" value="en">{{'English'|translate}}</option>
-
-                        </select>
-                    </li>
-                </ul>
-              </ul>
-            </li>
-          </ul>
-        </div> -->
-      </div>
-    </nav>          <!-- Nav Header Component Start -->
-      <!-- Nav Header Component End -->
-    <!--Nav End-->
-  </div></main>
-  

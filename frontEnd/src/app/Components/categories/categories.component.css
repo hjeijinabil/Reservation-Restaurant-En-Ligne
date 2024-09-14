@@ -1,6 +1,6 @@
 /* Basic container styling for the card body */
 .card-body {
-    padding: 20px;
+    padding: 35px;
     background-color: #f8f9fa; /* Light gray background */
     border-radius: 8px;
   }

@@ -1,10 +1,9 @@
 package com.reservation.reservationEnLigne.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -19,11 +18,11 @@ public class Employée {
 
     private String firstName;
     private String lastName;
-    private String streetAddress;
 
 
     private String mobileNumber;
 
-    private String email;
-
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "commande_id", referencedColumnName = "id") // Foreign key to Commande
+    private Commande commande;  // The assigned order (if necessary)
 }

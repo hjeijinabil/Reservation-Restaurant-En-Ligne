@@ -11,8 +11,8 @@
         "Login": "تسجيل الدخول",
         "Registre": "تسجيل",
         "Confirm Mail": "إعادة تعيين كلمة المرور",
-        "User Profile": "ملف المستخدم",
-        "Add User": "إضافة مستخدم",
+        "Employée Profile": "ملف الموظفون",
+        "Add Employée": " إضافة الموظفون",
        
         "Dashboard": "لوحة التحكم",
         "Add Product": "إضافة منتج",
@@ -47,12 +47,16 @@
         "Already have an Account": "لديك حساب بالفعل",
         "Recover password":"استعادة كلمة المرور",
         "firstName": "الاسم الأول",
+        "First Name":"الاسم الأول",
+        "Mobile Number":"رقم الموبايل",
   "lastName": "الاسم الأخير",
   "email": "البريد الإلكتروني",
+    "Order Number":"رقم الطلب",
+  
   "mobileNumber": "رقم الهاتف المحمول",
   "address": "العنوان",
   "Action": "إجراء",
-  "User List": "قائمة المستخدمين",
+  "Employée List": "قائمة الموظفون",
   "Description": "الوصف",
   "Price": "السعر",
   "Products": "المنتجات",
@@ -65,6 +69,8 @@
 "Total Amount":" المبلغ الإجمالي",
 "Status": "الحالة",
 "Action":" إجراء",
+"Image":"صورة",
+"Category": "الفئة",
 "Pending": "قيد الانتظار",
   "Delivered": "تم التوصيل",
   "Cancelled": "ملغى",
@@ -81,7 +87,8 @@
   "category":"فئة ",
   "Trending orders":"الطلبات الشائعة",
   "Galeroy":"صالات العرض",
-  "Languages":"اللغات"
+  "Languages":"اللغات",
+  "Employées":"الموظفون"
 
         
     }

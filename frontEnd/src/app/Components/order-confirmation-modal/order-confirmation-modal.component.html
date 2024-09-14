@@ -1,0 +1,27 @@
+<div class="modal-container">
+  <div class="modal-content">
+    <h2>Confirm Your Order</h2>
+    <p><strong>Order Details:</strong></p>
+    <div class="order-details">
+      <p><strong>Items:</strong></p>
+      <ul>
+        <li *ngFor="let item of orderItems">
+          {{ item.name }} - 
+          <button (click)="changeQuantity(item, -1)">-</button>
+          {{ item.quantity }}
+          <button (click)="changeQuantity(item, 1)">+</button>
+          x {{ item.price }}D
+        </li>
+      </ul>
+      <p><strong>Total Price:</strong> {{ totalPrice }}D</p>
+      <p><strong>Preparation Date and Time:</strong>
+        <input type="datetime-local" [(ngModel)]="preparationDate" />
+      </p>
+      <p *ngIf="alertMessage">{{ alertMessage }}</p>
+    </div>
+    <div class="modal-actions">
+      <button (click)="confirmOrder()" class="btn btn-primary">Confirm</button>
+      <button (click)="cancelOrder()" class="btn btn-secondary">Cancel</button>
+    </div>
+  </div>
+</div>

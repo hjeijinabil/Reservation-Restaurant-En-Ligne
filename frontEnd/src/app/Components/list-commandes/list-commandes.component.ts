@@ -1,18 +1,35 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommandeService } from 'src/app/Services/commande.service';
+import { EmployeeService } from 'src/app/Services/employee.service';
 import { OrderService } from 'src/app/Services/order.service';
+import { UserServiceService } from 'src/app/user-service.service';
 // Déclarez ou importez l'interface Order
+// order.model.ts
 export interface Order {
-  id: number; // Make id optional to handle cases where it might be undefined
+  id?: number;
   clientName: string;
   clientEmail: string;
   clientPhone: string;
-  orderDate: string;
-  orderTime: string;
-  status: string;
+  orderDate: string; // Adjust the type based on your actual date format
   totalAmount: number;
-  orderItems: string[];
+  status: string;
+  employeeFirstName?:string;
+
+  employée_id?: any; // Make sure this field matches the backend response
+  // Add other fields as needed
 }
+
+export interface Employee {
+  id: number;
+  firstName: string;
+  lastName: string;
+  streetAddress?: string;
+  mobileNumber?: string;
+  email?: string;
+  // Add other fields as necessary
+}
+
+
 @Component({
   selector: 'app-list-commandes',
   templateUrl: './list-commandes.component.html',
@@ -20,8 +37,12 @@ export interface Order {
 })
 export class ListCommandesComponent  implements OnInit {
   orders: Order[] = [];
+  selectedOrder: any;
+  employeeDetail: any;
+  selectedOrderId: number | null = null;
+  assignedEmployeeId: number | null = null; // Track the assigned employee ID
 
-  constructor(private orderService: OrderService) {}
+  constructor(private orderService: OrderService ,private userService : UserServiceService,private employeeService : EmployeeService) {}
 
   ngOnInit(): void {
     this.loadOrders();
@@ -31,8 +52,9 @@ export class ListCommandesComponent  implements OnInit {
     this.orderService.getOrders().subscribe(
       (orders: Order[]) => {
         this.orders = orders;
+        console.log('gg', orders);
       },
-      (error) => console.error('Error loading orders:', error)
+      (error: any) => console.error('Error loading orders:', error)
     );
   }
 
@@ -42,6 +64,7 @@ export class ListCommandesComponent  implements OnInit {
     });
   }
   updateOrderStatus(orderId: number, newStatus: string): void {
+    console.log(orderId, newStatus)
     this.orderService.updateOrderStatus(orderId, newStatus).subscribe(
       () => {
         this.loadOrders(); // Reload orders after updating status
@@ -51,5 +74,66 @@ export class ListCommandesComponent  implements OnInit {
       }
     );
   }
-}
+ showOrderDetails(order: any) {
+    this.selectedOrder = order;
+    const modal = document.getElementById('orderDetailsModal');
+    if (modal) {
+      modal.style.display = 'block';
+    }
+  }
+
+  closeOrderDetails() {
+    const modal = document.getElementById('orderDetailsModal');
+    if (modal) {
+      modal.style.display = 'none';
+    }
+  }
+  viewDetails(order: any): void {
+    
+    this.selectedOrderId = order.id; // Set the selected order ID
+    if (order.employée_id) {
+      this.employeeService.getEmployeeById(order.employée_id).subscribe({
+        next: (response: any) => {
+          this.employeeDetail = response;
+        },
+        error: (err: any) => {
+          console.error('Error fetching employee details', err);
+          this.employeeDetail = null; // Clear details if there's an error
+        }
+      });
+    } else {
+      this.employeeDetail = null; // Clear details if no employee assigned
+    }
+  }
+  assignEmployeeToOrder(order: any): void {
+    // Fetch the username from the JWT token
+    let username = this.userService.getUserName(); // Using getUserName method from AuthService
+  console.log("hh",username);
+  
+    if (!username) {
+      console.warn('No logged-in user found');
+      return;
+    }
+  
+    // Call the service method to update the order with the assigned employee (username)
+    this.orderService.assignEmployeeToOrder(order.id, username).subscribe(
+      response => {
+        // Handle success
+        console.log('Employee assigned successfully');
+        this.loadOrders(); // Refresh the orders list or update the order locally
+      },
+      error => {
+        // Handle error
+        console.error('Error assigning employee', error);
+      }
+    );
+  }
+  
+  
+  }
+  
+
+  
+  
+
 

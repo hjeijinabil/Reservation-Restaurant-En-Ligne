@@ -1,14 +1,14 @@
-<header class="top-navbar">
+<header class="top-navbar ">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="index.html">
-                <img src="../assets/images/favicon.png" alt="" />
+                <img src="../assets/images/favicon.png" alt="" class=""  width="40" height="40"/>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-rs-food" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbars-rs-food">
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ml-auto flex justify-items-center align-items-center">
                     <li class="nav-item active"><a class="nav-link" href="/">{{'Home' | translate}}</a></li>
                     <li class="nav-item"><a class="nav-link" href="menu">{{'Menu' | translate}}</a></li>
                     <li class="nav-item"><a class="nav-link" href="galeroy">{{'Galeroy' | translate}}</a></li>
@@ -41,15 +41,7 @@
                                     <button (click)="onLogout()">
                                         <li><a class="dropdown-item">{{'Logout' | translate}}</a></li>
                                     </button>
-                                    <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                                        <li class="nav-item">
-                                            <select class="form-select" (change)="ChangeLang($event)" name="" id="" value ="Langues">
-                                                <option [selected]="lang==='ar'" value="ar">{{'arabe' | translate}}</option>
-                                                <option [selected]="lang==='fr'" value="fr">{{'French' | translate}}</option>
-                                                <option [selected]="lang==='en'" value="en">{{'English' | translate}}</option>
-                                            </select>
-                                        </li>
-                                    </ul>
+                                   
                                 </ul>
                             </li>
                         </ul>

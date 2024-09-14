@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { Observable } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt'; // Assumed you're using this for decoding JWT
+
 
 export interface User {
   id?: number;
@@ -27,6 +29,7 @@ interface JwtPayload {
   providedIn: 'root'
 })
 export class UserServiceService {
+  private jwtHelper = new JwtHelperService();
 
   private apiUrl = 'http://localhost:8087/auth'; // Remplacez par l'URL de votre backend
   private readonly tokenKey = 'token'; // Clé du jeton dans le stockage local
@@ -94,5 +97,12 @@ export class UserServiceService {
     localStorage.removeItem('userRole');
     // Rediriger vers la page de connexion ou d'accueil
     this.router.navigate(['/']);
+  }
+  getUserId(): number | null {
+    // Example logic to retrieve user ID
+    // This might come from a session, JWT token, or other methods
+    // For instance:
+    const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    return user?.id || null; // Return employee ID if available
   }
 }

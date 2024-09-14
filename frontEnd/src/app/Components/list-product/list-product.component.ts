@@ -18,10 +18,10 @@ export class ListProductComponent {
 
   loadProducts(): void {
     this.productService.getProducts().subscribe(
-      (data) => {
+      (data: any[]) => {
         this.products = data;
       },
-      (error) => {
+      (error: any) => {
         console.error('Error fetching products:', error);
       }
     );
@@ -30,11 +30,11 @@ export class ListProductComponent {
 
   deleteProduct(productId: number): void {
     this.productService.deleteProduct(productId).subscribe(
-      (response) => {
+      (response: any) => {
         console.log('Product deleted successfully:', response);
         this.products = this.products.filter(product => product.id !== productId); // Update the product list
       },
-      (error) => {
+      (error: any) => {
         console.error('Error deleting product:', error);
       }
     );

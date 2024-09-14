@@ -12,8 +12,15 @@ export class AddProductService {
 
   constructor(private http: HttpClient) {}
 
-  addProduct(formData: FormData): Observable<any> {
-    return this.http.post<any>(this.apiUrl, formData);
+  // Fetch products based on category or fetch all products
+  getMenuItems(category: string = 'all'): Observable<any[]> {
+    console.log(category);
+    
+    const url = category === 'all' ? this.apiUrl : `${this.apiUrl}/by-category?category=${category}`;
+    return this.http.get<any[]>(url);
+  }
+  addProduct(product: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, product);
   }
   getProducts(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
@@ -29,9 +36,5 @@ export class AddProductService {
   updateProduct(productId: string, productData: any): Observable<any> {
     const url = `${this.apiUrl}/${productId}`;
     return this.http.put<any>(url, productData);
-  }
-  // Récupérer les produits par catégorie
-  getMenuItems(category: string = 'all'): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/by-category?category=${category}`);
   }
 }

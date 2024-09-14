@@ -1,37 +1,28 @@
-package com.reservation.reservationEnLigne.Entity;
+package com.reservation.reservationEnLigne.Dto;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import com.reservation.reservationEnLigne.Entity.Employée;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Setter
 @Getter
-public class Commande {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Setter
+public class CommandeDTO {
     private Long id;
-
     private String clientName;
     private String clientEmail;
     private String clientPhone;
     private LocalDateTime orderDate;
-    private Date preparationDate; // New field for preparation date
+    private Date preparationDate;
     private String status;
     private Double totalAmount;
+    private List<OrderItemDTO> orderItems;
     private String employeeFirstName;
-
-    @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> orderItems = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employée_id") // Foreign key column for the Employée entity

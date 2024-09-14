@@ -10,16 +10,18 @@
     "Login": "Connexion",
     "Registre": "Inscription",
     "Confirm Mail": "Réinitialiser le mot de passe",
-    "User Profile": "Profil utilisateur",
-    "Add User": "Ajouter un utilisateur",
-    "User List": "Liste des utilisateurs",
+    "Employées Profile": "Profil Employées",
+    "Add Employées": "Ajouter un Employées",
+    "User Employées": "Liste des Employées",
     "Dashboard": "Tableau de bord",
     "Add Product": "Ajouter un produit",
     "Product List": "Liste des produits",
     "Orders": "Commandes",
+    "Order Number":"commande Numero",
     "Orders List": "Liste des commandes",
     "Privacy Setting": "Paramètres de confidentialité",
     "Logout": "Déconnexion",
+    "Category":"Catégorie",
     "arabe": "Arabe",
     "English": "Anglais",
     "French": "Français",
@@ -77,7 +79,8 @@
   "category":"Catégorie",
   "Trending orders":"Commandes tendance",
   "Galeroy":"Galeries",
-  "Languages":"Langues"
+  "Languages":"Langues",
+  "Employées":"Employées"
   
 
    

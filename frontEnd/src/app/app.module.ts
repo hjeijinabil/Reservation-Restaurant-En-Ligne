@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { AppRoutingModule } from './Services/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SignInComponent } from './Components/sign-in/sign-in.component';
 import { SignUpComponent } from './Components/sign-up/sign-up.component';
@@ -34,6 +34,8 @@ import { CategoryComponent } from './Components/category/category.component';
 import { CategoriesComponent } from './Components/categories/categories.component';
 import { HeaderrComponent } from './Components/headerr/headerr.component';
 import { FooterComponent } from './Components/footer/footer.component';
+import { OrderConfirmationModalComponent } from './Components/order-confirmation-modal/order-confirmation-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
 export function HttpLoaderFactory(http:HttpClient){
   return new TranslateHttpLoader(http);
 }
@@ -64,7 +66,8 @@ export function HttpLoaderFactory(http:HttpClient){
     CategoryComponent,
     CategoriesComponent,
     HeaderrComponent,
-    FooterComponent
+    FooterComponent,
+    OrderConfirmationModalComponent
  
   
   ],
@@ -74,7 +77,9 @@ export function HttpLoaderFactory(http:HttpClient){
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    MatDialogModule,
     RouterModule,
+    
     TranslateModule.forRoot(
       {
       loader:{

@@ -2,6 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { AddProductService } from 'src/app/Services/add-product.service';
 import { CommandeService } from 'src/app/Services/commande.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { OrderConfirmationModalComponent } from '../order-confirmation-modal/order-confirmation-modal.component';
+
+export interface OrderItem {
+  name: string;
+  quantity: number;
+  price: number;
+}
 
 export interface Order {
   id?: number;
@@ -11,9 +19,16 @@ export interface Order {
   orderDate: string;
   orderTime: string;
   status: string;
-  totalAmount: number;
-  orderItems: string[];
+  totalAmount: number ;
+  orderItems: OrderItem[];
+  preparationDate?: string;
 }
+
+export interface OrderConfirmationResult {
+  confirmed: boolean;
+  preparationDate?: string;
+}
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -33,13 +48,21 @@ export class MenuComponent implements OnInit {
   };
   selectedOrder: Order | null = null;
 
-  cart: { [key: string]: number } = {}; // Object to hold the quantity of each item
+  cart: { [key: string]: number } = {};
   totalPrice: number = 0;
   items: any[] = [];
   filteredItems: any[] = [];
-  selectedCategory: string = 'all'; // Track the selected category
+  selectedCategory: string = 'all';
+  deliveryFee: number = 10;
+  categories: string[] = [];
+  alertMessage: string | null = null;
 
-  constructor(private productService: AddProductService, private orderService: CommandeService, private router: Router) {}
+  constructor(
+    private productService: AddProductService,
+    private orderService: CommandeService,
+    private router: Router,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.loadMenuItems();
@@ -47,87 +70,115 @@ export class MenuComponent implements OnInit {
 
   loadMenuItems(category: string = 'all'): void {
     this.productService.getMenuItems(category).subscribe(
-      (items) => {
+      (items: any[]) => {
         this.filteredItems = items;
-        this.selectedCategory = category; // Mettez à jour la catégorie sélectionnée
+        this.selectedCategory = category;
+        this.categories = Array.from(new Set(items.map((item: { category: any; }) => item.category)));
       },
-      (error) => {
+      (error: any) => {
         console.error('Error loading menu items:', error);
       }
     );
   }
 
   filterItems(category: string): void {
-    this.selectedCategory = category; // Mettez à jour la catégorie sélectionnée
+    this.selectedCategory = category;
     this.loadMenuItems(category);
   }
-  
 
   addToCart(item: any): void {
-    if (this.cart[item.name]) {
-      this.cart[item.name]++;
+    const description = item.description; // Utilisez description comme clé
+    if (this.cart[description]) {
+      this.cart[description]++;
     } else {
-      this.cart[item.name] = 1;
+      this.cart[description] = 1;
     }
     this.calculateTotal();
   }
 
   removeFromCart(item: any): void {
-    if (this.cart[item.name]) {
-      this.cart[item.name]--;
-      if (this.cart[item.name] === 0) {
-        delete this.cart[item.name];
+    const description = item.description; // Utilisez description comme clé
+    if (this.cart[description]) {
+      this.cart[description]--;
+      if (this.cart[description] === 0) {
+        delete this.cart[description];
       }
     }
     this.calculateTotal();
   }
 
   getItemQuantity(item: any): number {
-    return this.cart[item.name] || 0;
+    return this.cart[item.description] || 0; // Utilisez description comme clé
   }
 
   calculateTotal(): void {
-    this.totalPrice = Object.keys(this.cart).reduce((total, itemName) => {
-      const item = this.filteredItems.find(i => i.name === itemName);
-      return total + (item ? item.price * this.cart[itemName] : 0);
+    this.totalPrice = Object.keys(this.cart).reduce((total, description) => {
+      const item = this.filteredItems.find(i => i.description === description);
+      return total + (item ? item.price * this.cart[description] : 0);
     }, 0);
   }
 
   processOrder(): void {
-    // Check if the user is authenticated
-    if (!this.orderService.isAuthenticated()) {
-      // If not authenticated, redirect to the login page
-      this.router.navigate(['/login']);
-      return;
-    }
-
-    // Process the order if the user is authenticated
-    this.newOrder.orderItems = Object.keys(this.cart); // Assuming orderItems are the keys of items in the cart
-    this.newOrder.totalAmount = this.totalPrice;
-
-    this.orderService.placeOrder(this.newOrder).subscribe(
-      (order) => {
-        console.log('Order placed successfully:', order);
-        this.resetCart(); // Reset cart after placing the order
-      },
-      (error) => {
-        console.error('Error placing order:', error);
+    const dialogRef = this.dialog.open(OrderConfirmationModalComponent, {
+      data: {
+        orderItems: Object.keys(this.cart).map(description => ({
+          name: description, // Utilisez description comme nom
+          quantity: this.cart[description],
+          price: this.filteredItems.find(i => i.description === description)?.price || 0
+        })),
+        totalPrice: this.totalPrice,
+        deliveryFee: this.deliveryFee
       }
-    );
+    });
+
+    dialogRef.afterClosed().subscribe((result: OrderConfirmationResult) => {
+      if (result?.confirmed) {
+        const newOrder: Order = {
+          clientName: '',
+          clientEmail: '',
+          clientPhone: '',
+          orderDate: new Date().toISOString(),
+          orderTime: new Date().toISOString(),
+          status: 'Pending',
+          totalAmount: this.totalPrice + this.deliveryFee,
+          orderItems: Object.keys(this.cart).map(description => ({
+            name: description, // Utilisez description comme nom
+            quantity: this.cart[description],
+            price: this.filteredItems.find(i => i.description === description)?.price || 0
+          })),
+          preparationDate: result.preparationDate
+        };
+
+        if (this.orderService.isAuthenticated()) {
+          this.orderService.placeOrder(newOrder).subscribe(
+            (order: any) => {
+              console.log('Order placed successfully:', order);
+              this.resetCart();
+
+              if (result.preparationDate) {
+                const prepDate = new Date(result.preparationDate);
+                const now = new Date();
+                const timeToAlert = prepDate.getTime() - 5 * 60 * 1000 - now.getTime();
+                const alertDate = new Date(prepDate.getTime() - 5 * 60 * 1000).toLocaleString();
+                this.alertMessage = `Your order has been successfully placed!\n\nOrder Details:\n- D\n- Preparation Date: ${alertDate || 'Not specified'}`;
+              }
+            },
+            (error: any) => {
+              console.error('Error placing order:', error);
+              this.alertMessage = 'There was an issue placing your order. Please try again later.';
+            }
+          );
+        } else {
+          this.router.navigate(['/login']);
+        }
+      } else {
+        console.log('Order was not confirmed');
+      }
+    });
   }
 
   resetCart(): void {
     this.cart = {};
     this.totalPrice = 0;
-    this.newOrder = {
-      clientName: '',
-      clientEmail: '',
-      clientPhone: '',
-      orderDate: '',
-      orderTime: '',
-      status: '',
-      totalAmount: 0,
-      orderItems: []
-    };
   }
 }

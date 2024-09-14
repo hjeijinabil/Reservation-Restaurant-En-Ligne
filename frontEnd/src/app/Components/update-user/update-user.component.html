@@ -36,17 +36,7 @@
                 
                       required>
                   </div>
-                  <div class="form-group col-md-12">
-                    <label class="form-label" for="email">:{{'Email'|translate}}</label>
-                    <input 
-                      type="email" 
-                      class="form-control" 
-                      id="email" 
-                      name="email"
-                      [(ngModel)]="user.email"
-                   
-                      required>
-                  </div>
+               
                   <div class="form-group col-md-12">
                     <label class="form-label" for="mobileNumber">{{'mobileNumber'|translate}}</label>
                     <input 
@@ -58,17 +48,7 @@
                    
                       required>
                   </div>
-                  <div class="form-group col-md-12">
-                    <label class="form-label" for="streetAddress">{{'address'|translate}}</label>
-                    <input 
-                      type="text" 
-                      class="form-control" 
-                      id="streetAddress" 
-                      name="streetAddress"
-                      [(ngModel)]="user.streetAddress"
-                   
-                      required>
-                  </div>
+                
                 </div>
                 <button type="submit" class="btn btn-primary">{{'Update User'|translate}}</button>
               </form>

@@ -3,9 +3,11 @@ package com.reservation.reservationEnLigne.Controller;
 import com.reservation.reservationEnLigne.Entity.Employée;
 import com.reservation.reservationEnLigne.Service.EmployéeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/employees")
@@ -23,10 +25,7 @@ public class EmplyéeController {
         return employeeService.saveEmployee(employee);
     }
 
-    @GetMapping("/{id}")
-    public Employée getEmployeeById(@PathVariable Long id) {
-        return employeeService.getEmployeeById(id);
-    }
+
     @PutMapping("/{id}")
     public Employée updateEmployee(@PathVariable Long id, @RequestBody Employée employee) {
         // Fetch the existing employee by ID
@@ -35,9 +34,7 @@ public class EmplyéeController {
             // Update the existing employee's details
             existingEmployee.setFirstName(employee.getFirstName());
             existingEmployee.setLastName(employee.getLastName());
-            existingEmployee.setStreetAddress(employee.getStreetAddress());
             existingEmployee.setMobileNumber(employee.getMobileNumber());
-            existingEmployee.setEmail(employee.getEmail());
             // Save the updated employee
             return employeeService.saveEmployee(existingEmployee);
 
@@ -45,5 +42,13 @@ public class EmplyéeController {
     @DeleteMapping("/{id}")
     public void deleteEmployee(@PathVariable Long id) {
         employeeService.deleteEmployee(id);
+    }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Employée> getEmployeeById(@PathVariable Long id) {
+        Optional<Employée> employee = employeeService.getEmployeeByIdd(id);
+        return employee.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
