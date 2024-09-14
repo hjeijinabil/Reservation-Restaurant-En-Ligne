@@ -1,0 +1,11 @@
+.logo-img {
+    max-width: 100%; /* Responsive width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    transition: transform 0.3s ease; /* Smooth scaling effect */
+}
+
+.logo-img:hover {
+    transform: scale(1.05); /* Slightly enlarge image on hover */
+}

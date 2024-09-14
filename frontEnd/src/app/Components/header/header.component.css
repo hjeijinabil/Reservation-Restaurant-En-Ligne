@@ -1,0 +1,6 @@
+.gallery-box .tz-gallery img {
+    width: 600px;
+    height: 300px;
+    object-fit: cover; /* Assure que l'image conserve ses proportions tout en remplissant l'espace */
+}
+

@@ -1,0 +1,57 @@
+<app-headerr></app-headerr>
+<app-dasboardd></app-dasboardd>
+<div class="menu-box">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="heading-title text-center">
+          <h2> {{ 'Special Menu' | translate }}</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="special-menu text-center">
+          <div class="button-group filter-button-group">
+            <button (click)="filterItems('all')" [class.active]="selectedCategory === 'all'">All</button>
+            <button (click)="filterItems('MENUS')" [class.active]="selectedCategory === 'MENUS'">MENUS</button>
+            <button (click)="filterItems('MIXORINI')" [class.active]="selectedCategory === 'MIXORINI'">MIXORINI</button>
+            <button (click)="filterItems('MIXORINI MAX')" [class.active]="selectedCategory === 'MIXORINI MAX'">MIXORINI MAX</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row special-list">
+      <div *ngFor="let item of filteredItems" class="col-lg-4 col-md-6 special-grid">
+        <div class="gallery-single">
+          <img [src]="item.imageUrl" class="img-fluid" [alt]="item.name">
+          <div class="info-container">
+            <div class="item-info">
+              <h3>{{ item.name }}</h3>
+              <p>{{ item.description }}</p>
+              <h4>{{ item.price }}D</h4>
+            </div>
+            <div class="cart-buttons">
+              <button (click)="removeFromCart(item)" class="btn btn-secondary">−</button>
+              <span>{{ getItemQuantity(item) }}</span>
+              <button (click)="addToCart(item)" class="btn btn-secondary">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Display total price -->
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <button class="place-order-button btn btn-primary" (click)="processOrder()" [disabled]="totalPrice === 0">Commander</button>
+      </div>
+    </div>
+
+    <!-- Alert message display -->
+    <div *ngIf="alertMessage" class="alert alert-info text-center mt-3">
+      {{ alertMessage }}
+    </div>
+  </div>
+</div>

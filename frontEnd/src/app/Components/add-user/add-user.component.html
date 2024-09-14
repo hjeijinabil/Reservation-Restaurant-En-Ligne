@@ -1,0 +1,40 @@
+<app-dasboardd></app-dasboardd>
+<div class="container mt-4">
+  <form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm" class="needs-validation" novalidate>
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h3 class="card-title mb-0">{{ 'Add User' | translate }}</h3>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="fname" class="form-label">{{ 'firstName' | translate }}</label>
+            <input type="text" class="form-control" id="fname" name="fname" [(ngModel)]="user.firstName" required>
+            <div class="invalid-feedback">
+              {{ 'First Name is required' | translate }}
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="lname" class="form-label">{{ 'Last Name' | translate }}</label>
+            <input type="text" class="form-control" id="lname" name="lname" [(ngModel)]="user.lastName" required>
+            <div class="invalid-feedback">
+              {{ 'Last Name is required' | translate }}
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="mobno" class="form-label">{{ 'mobileNumber' | translate }}</label>
+            <input type="text" class="form-control" id="mobno" name="mobno" [(ngModel)]="user.mobileNumber">
+            <div class="invalid-feedback">
+              {{ 'Mobile Number is optional' | translate }}
+            </div>
+          </div>
+          <div class="col-md-12 mt-4">
+            <button type="submit" class="btn btn-primary w-100" [disabled]="userForm.invalid">
+              <i class="bi bi-save"></i> {{ 'Add User' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

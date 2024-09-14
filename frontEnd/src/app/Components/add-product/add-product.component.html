@@ -1,0 +1,91 @@
+<app-dasboardd></app-dasboardd>
+<div class="card-body enhanced-form">
+  <div class="new-product-info">
+    <form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)" novalidate>
+      <div class="row">
+        <!-- Name Field -->
+        <div class="form-group col-md-12">
+          <label class="form-label" for="name">{{ 'Name' | translate }}</label>
+          <input 
+            type="text" 
+            class="form-control form-control-lg" 
+            id="name" 
+            name="name" 
+            [(ngModel)]="product.name" 
+            required 
+            [ngClass]="{'is-invalid': productForm.submitted && !productForm.controls['name']?.valid}">
+          <div *ngIf="productForm.submitted && !productForm.controls['name']?.valid" class="text-danger">
+            {{ 'Name is required' | translate }}
+          </div>
+        </div>
+        
+        <!-- Description Field -->
+        <div class="form-group col-md-12">
+          <label class="form-label" for="description">{{ 'Description' | translate }}</label>
+          <textarea 
+            class="form-control form-control-lg" 
+            id="description" 
+            name="description" 
+            [(ngModel)]="product.description" 
+            rows="4" 
+            required 
+            [ngClass]="{'is-invalid': productForm.submitted && !productForm.controls['description']?.valid}">
+          </textarea>
+          <div *ngIf="productForm.submitted && !productForm.controls['description']?.valid" class="text-danger">
+            {{ 'Description is required' | translate }}
+          </div>
+        </div>
+        
+        <!-- Category Field -->
+        <div class="form-group col-md-12">
+          <label class="form-label" for="category">{{ 'Category' | translate }}</label>
+          <select 
+            class="form-control form-control-lg" 
+            id="category" 
+            name="category" 
+            [(ngModel)]="product.category" 
+            (ngModelChange)="onCategoryChange($event)" 
+            required 
+            [ngClass]="{'is-invalid': productForm.submitted && !productForm.controls['category']?.valid}">
+            <option *ngFor="let category of categories" [value]="category">
+              {{ category | translate }}
+            </option>
+          </select>
+          <div *ngIf="productForm.submitted && !productForm.controls['category']?.valid" class="text-danger">
+            {{ 'Category is required' | translate }}
+          </div>
+        </div>
+        
+        <!-- Price Field -->
+        <div class="form-group col-md-12">
+          <label class="form-label" for="price">{{ 'Price' | translate }}</label>
+          <input 
+            type="number" 
+            class="form-control form-control-lg" 
+            id="price" 
+            name="price" 
+            [(ngModel)]="product.price" 
+            required 
+            [ngClass]="{'is-invalid': productForm.submitted && !productForm.controls['price']?.valid}">
+          <div *ngIf="productForm.submitted && !productForm.controls['price']?.valid" class="text-danger">
+            {{ 'Price is required' | translate }}
+          </div>
+        </div>
+        
+        <!-- Image Field -->
+        <div class="form-group col-md-12">
+          <label class="form-label" for="file">{{ 'Image' | translate }}</label>
+          <input 
+            type="file" 
+            class="form-control form-control-lg" 
+            id="file" 
+            name="file" 
+            (change)="onFileChange($event)">
+        </div>
+      </div>
+      
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary btn-lg mt-3">{{ 'Add Product' | translate }}</button>
+    </form>
+  </div>
+</div>
