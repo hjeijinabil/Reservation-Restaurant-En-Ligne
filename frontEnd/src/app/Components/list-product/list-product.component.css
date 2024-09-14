@@ -1,5 +1,6 @@
 .row {
     margin-left: 20px; /* Adjust the value as needed */
+    padding: 90px;
   }/* General card styles */
 .card {
   border: 1px solid #e0e0e0;

@@ -22,7 +22,5 @@ public class Employée {
 
     private String mobileNumber;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "commande_id", referencedColumnName = "id") // Foreign key to Commande
-    private Commande commande;  // The assigned order (if necessary)
+
 }

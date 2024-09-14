@@ -14,6 +14,7 @@ export interface Order {
   totalAmount: number;
   status: string;
   employeeFirstName?:string;
+  preparationDate?: string;
 
   employée_id?: any; // Make sure this field matches the backend response
   // Add other fields as needed
@@ -36,6 +37,9 @@ export interface Employee {
   styleUrls: ['./list-commandes.component.css']
 })
 export class ListCommandesComponent  implements OnInit {
+  isAssigningEmployee: boolean = false;
+  statusMessage: string = ''; // Property to hold the status message
+
   orders: Order[] = [];
   selectedOrder: any;
   employeeDetail: any;
@@ -106,30 +110,45 @@ export class ListCommandesComponent  implements OnInit {
     }
   }
   assignEmployeeToOrder(order: any): void {
-    // Fetch the username from the JWT token
-    let username = this.userService.getUserName(); // Using getUserName method from AuthService
-  console.log("hh",username);
-  
-    if (!username) {
-      console.warn('No logged-in user found');
+    // Prevent further clicks if an operation is already in progress
+    if (this.isAssigningEmployee) {
       return;
     }
-  
+
+    // Set the flag and message to indicate processing
+    this.isAssigningEmployee = true;
+    this.statusMessage = 'Assigning employee, please wait...';
+
+    // Fetch the username from the JWT token
+    let username = this.userService.getUserName(); // Using getUserName method from AuthService
+    console.log("hh", username);
+    
+    if (!username) {
+      console.warn('No logged-in user found');
+      this.statusMessage = 'No logged-in user found'; // Set error message
+      this.isAssigningEmployee = false; // Reset the flag
+      return;
+    }
+
     // Call the service method to update the order with the assigned employee (username)
     this.orderService.assignEmployeeToOrder(order.id, username).subscribe(
       response => {
         // Handle success
         console.log('Employee assigned successfully');
+        this.statusMessage = 'Employee assigned successfully'; // Set success message
         this.loadOrders(); // Refresh the orders list or update the order locally
       },
       error => {
         // Handle error
         console.error('Error assigning employee', error);
+        this.statusMessage = 'Error assigning employee, please try again.'; // Set error message
+      },
+      () => {
+        // Reset the flag to allow further clicks
+        this.isAssigningEmployee = false;
       }
     );
   }
-  
-  
   }
   
 

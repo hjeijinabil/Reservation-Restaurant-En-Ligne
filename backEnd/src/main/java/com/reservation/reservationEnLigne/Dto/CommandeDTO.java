@@ -14,9 +14,7 @@ import java.util.List;
 @Setter
 public class CommandeDTO {
     private Long id;
-    private String clientName;
-    private String clientEmail;
-    private String clientPhone;
+
     private LocalDateTime orderDate;
     private Date preparationDate;
     private String status;

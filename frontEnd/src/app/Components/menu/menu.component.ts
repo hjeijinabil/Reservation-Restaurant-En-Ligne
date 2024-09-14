@@ -160,7 +160,7 @@ export class MenuComponent implements OnInit {
                 const now = new Date();
                 const timeToAlert = prepDate.getTime() - 5 * 60 * 1000 - now.getTime();
                 const alertDate = new Date(prepDate.getTime() - 5 * 60 * 1000).toLocaleString();
-                this.alertMessage = `Your order has been successfully placed!\n\nOrder Details:\n- D\n- Preparation Date: ${alertDate || 'Not specified'}`;
+                this.alertMessage = `شكرا لاختيارك مطعمنا. نحن نتطلع إلى خدمتك في الموعد المحدد لك. ${alertDate || 'Not specified'}`;
               }
             },
             (error: any) => {

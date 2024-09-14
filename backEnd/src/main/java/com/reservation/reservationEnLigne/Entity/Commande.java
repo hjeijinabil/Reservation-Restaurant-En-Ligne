@@ -21,9 +21,7 @@ public class Commande {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String clientName;
-    private String clientEmail;
-    private String clientPhone;
+
     private LocalDateTime orderDate;
     private Date preparationDate; // New field for preparation date
     private String status;
