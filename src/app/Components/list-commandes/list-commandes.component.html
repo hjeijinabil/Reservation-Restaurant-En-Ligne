@@ -1,0 +1,51 @@
+<app-dasboardd></app-dasboardd>
+<div class="orders-container">
+  <div class="order-card" *ngFor="let order of orders">
+    <!-- <p *ngIf="statusMessage" style="font-size: 20px;">{{ statusMessage }}</p> -->
+
+    <div class="order-header">
+      <h2>{{ 'Order Number' | translate }}: {{ order.id }}</h2>
+    </div>
+    <div class="order-body">
+      <p><strong>{{ 'Order Date' | translate }}:</strong> {{ order.orderDate }}</p>
+      <p><strong>{{ 'preparationDate' | translate }}:</strong> {{ order.preparationDate }}</p>
+      <p><strong>{{ 'Total Amount' | translate }}:</strong> {{ order.totalAmount }}</p>
+
+
+      <p><strong>{{ 'Status' | translate }}:</strong>
+        <select [(ngModel)]="order.status" (change)="updateOrderStatus(order.id!, order.status)">
+          <option value="Pending">{{ 'Pending' | translate }}</option>
+          <option value="Delivered">{{ 'Delivered' | translate }}</option>
+          <option value="Cancelled">{{ 'Cancelled' | translate }}</option>
+        </select>
+      </p>
+      <p>      <button style="font-size: 20px; color: blue;" (click)="assignEmployeeToOrder(order)" class="btn btn-outline-secondary" >{{ 'Assign Employee' | translate }}</button>
+      </p>
+    </div>
+    <div class="order-footer">
+      <a class="btn btn-primary"  [attr.href]="'#collapse' + order.id" role="button" data-bs-toggle="collapse" aria-expanded="false" [attr.aria-controls]="'collapse' + order.id" (click)="viewDetails(order)">
+        {{ 'View Details' | translate }}
+      </a>
+      <button  (click)="deleteOrder(order.id!)" [disabled]="isAssigningEmployee" class="btn btn-outline-danger">{{ 'Delete' | translate }}</button>
+
+    </div>
+    
+    <!-- Unique Collapsible Content for Each Order -->
+    <div class="collapse" [id]="'collapse' + order.id">
+      <div class="card card-body">
+        <div *ngIf="selectedOrderId === order.id">
+          <p style="font-size: 20px;"><strong>{{ 'Order Date' | translate }}:</strong> {{ order.orderDate }}</p>
+          <p style="font-size: 20px;"><strong>{{ 'Total Amount' | translate }}:</strong> {{ order.totalAmount }}</p>
+          <p style="font-size: 20px;"><strong>{{ 'firstName' | translate }}:</strong> {{ order.employeeFirstName }}</p>
+
+       
+          
+
+          <div *ngIf="assignedEmployeeId">
+            <p style="font-size: 30px;"><strong style="font-size: 30px;">{{ 'Assigned Employee ID' | translate }}:</strong> {{ assignedEmployeeId }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<app-dasboardd></app-dasboardd>
+<div class="content-inner mt-5 py-0">
+  <div>
+    <div class="row">
+      <div class="col-xl-9 col-lg-8">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between">
+            <div class="header-title">
+              <h4 class="card-title">{{'Update Product Information'|translate}}</h4>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="new-product-info">
+              <form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)">
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label class="form-label" for="name">{{'Name'|translate}}</label>
+                    <input 
+                      type="text" 
+                      class="form-control" 
+                      id="name" 
+                      name="name"
+                   
+                      required>
+                  </div>
+                  <div class="form-group col-md-12">
+                    <label class="form-label" for="description">{{'Description'|translate}}</label>
+                    <textarea 
+                      class="form-control" 
+                      id="description" 
+                      name="description"
+                      [(ngModel)]="product.description"
+              
+                      required></textarea>
+                  </div>
+                  <div class="form-group col-md-12">
+                    <label class="form-label" for="price">{{'Price'|translate}}</label>
+                    <input 
+                      type="number" 
+                      class="form-control" 
+                      id="price" 
+                      name="price"
+                      [(ngModel)]="product.price"
+                      
+                      required>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">{{'Update Product'|translate}}</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
