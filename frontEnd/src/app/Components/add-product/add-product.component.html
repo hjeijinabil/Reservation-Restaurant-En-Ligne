@@ -1,10 +1,10 @@
 <app-dasboardd></app-dasboardd>
-<div class="card-body enhanced-form">
+<div class="container-fluid enhanced-form">
   <div class="new-product-info">
     <form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)" novalidate>
       <div class="row">
         <!-- Name Field -->
-        <div class="form-group col-md-12">
+        <div class="form-group col-12">
           <label class="form-label" for="name">{{ 'Name' | translate }}</label>
           <input 
             type="text" 
@@ -20,7 +20,7 @@
         </div>
         
         <!-- Description Field -->
-        <div class="form-group col-md-12">
+        <div class="form-group col-12">
           <label class="form-label" for="description">{{ 'Description' | translate }}</label>
           <textarea 
             class="form-control form-control-lg" 
@@ -29,15 +29,14 @@
             [(ngModel)]="product.description" 
             rows="4" 
             required 
-            [ngClass]="{'is-invalid': productForm.submitted && !productForm.controls['description']?.valid}">
-          </textarea>
+            [ngClass]="{'is-invalid': productForm.submitted && !productForm.controls['description']?.valid}"></textarea>
           <div *ngIf="productForm.submitted && !productForm.controls['description']?.valid" class="text-danger">
             {{ 'Description is required' | translate }}
           </div>
         </div>
-        
+
         <!-- Category Field -->
-        <div class="form-group col-md-12">
+        <div class="form-group col-12">
           <label class="form-label" for="category">{{ 'Category' | translate }}</label>
           <select 
             class="form-control form-control-lg" 
@@ -55,9 +54,9 @@
             {{ 'Category is required' | translate }}
           </div>
         </div>
-        
+
         <!-- Price Field -->
-        <div class="form-group col-md-12">
+        <div class="form-group col-12">
           <label class="form-label" for="price">{{ 'Price' | translate }}</label>
           <input 
             type="number" 
@@ -71,9 +70,9 @@
             {{ 'Price is required' | translate }}
           </div>
         </div>
-        
+
         <!-- Image Field -->
-        <div class="form-group col-md-12">
+        <div class="form-group col-12">
           <label class="form-label" for="file">{{ 'Image' | translate }}</label>
           <input 
             type="file" 
@@ -83,7 +82,7 @@
             (change)="onFileChange($event)">
         </div>
       </div>
-      
+
       <!-- Submit Button -->
       <button type="submit" class="btn btn-primary btn-lg mt-3">{{ 'Add Product' | translate }}</button>
     </form>

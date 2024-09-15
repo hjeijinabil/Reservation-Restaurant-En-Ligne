@@ -1,11 +1,110 @@
-.logo-img {
-    max-width: 100%; /* Responsive width */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-    transition: transform 0.3s ease; /* Smooth scaling effect */
+/* Style de base pour la barre latérale */
+.sidebar {
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow-y: auto;
+    transition: all 0.3s;
 }
 
-.logo-img:hover {
-    transform: scale(1.05); /* Slightly enlarge image on hover */
+.sidebar-header {
+    padding: 15px;
+    border-bottom: 1px solid #444;
+}
+
+.sidebar-body {
+    padding: 15px;
+}
+
+.navbar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item {
+    margin-bottom: 10px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.nav-link:hover {
+    background-color: #444;
+}
+
+.icon {
+    margin-right: 10px;
+}
+
+/* Pour les écrans plus larges que 768px */
+@media (min-width: 768px) {
+    .sidebar {
+        width: 300px;
+    }
+}
+
+/* Pour les écrans plus larges que 992px */
+@media (min-width: 992px) {
+    .sidebar {
+        width: 350px;
+    }
+}
+
+/* Pour les écrans plus larges que 1200px */
+@media (min-width: 1200px) {
+    .sidebar {
+        width: 400px;
+    }
+}
+
+/* Style pour les écrans plus petits (mobiles) */
+@media (max-width: 767px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .sidebar-toggle {
+        display: block;
+        cursor: pointer;
+    }
+
+    .sidebar-body {
+        display: none;
+        width: 100%;
+    }
+
+    .sidebar.active .sidebar-body {
+        display: block;
+    }
+}
+
+/* Style pour les écrans entre 768px et 991px */
+@media (min-width: 768px) and (max-width: 991px) {
+    .sidebar {
+        width: 250px;
+    }
+
+    .sidebar-body {
+        padding: 10px;
+    }
 }

@@ -3,7 +3,7 @@
   <form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm" class="needs-validation" novalidate>
     <div class="card shadow-sm">
       <div class="card-header bg-primary text-white">
-        <h3 class="card-title mb-0">{{ 'Add User' | translate }}</h3>
+        <h3 class="card-title mb-0">{{ 'Add Employée' | translate }}</h3>
       </div>
       <div class="card-body">
         <div class="row">
@@ -30,7 +30,7 @@
           </div>
           <div class="col-md-12 mt-4">
             <button type="submit" class="btn btn-primary w-100" [disabled]="userForm.invalid">
-              <i class="bi bi-save"></i> {{ 'Add User' | translate }}
+              <i class="bi bi-save"></i> {{ 'Add Employée' | translate }}
             </button>
           </div>
         </div>

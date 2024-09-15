@@ -1,12 +1,14 @@
-.row {
-    margin-left: 20px; /* Adjust the value as needed */
-    padding: 90px;
-  }/* General card styles */
+
+/* General card styles */
+/* General card styles */
 .card {
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
+  padding-left: 40px;
+  padding-top: 40px;
+
 }
 
 /* Header styles */
@@ -18,7 +20,7 @@
 
 .card-title {
   margin: 0;
-  font-size: 1.5rem; /* Adjusted font size */
+  font-size: 1.5rem;
   color: #333;
   font-weight: bold;
 }
@@ -49,12 +51,12 @@
 /* Button styles */
 .btn {
   border-radius: 4px;
-  padding: 0.25rem 0.5rem; /* Smaller padding */
-  font-size: 1.75rem; /* Smaller font size */
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 2rem; /* Set a minimum width */
+  min-width: 2rem;
   text-decoration: none;
 }
 
@@ -69,10 +71,59 @@
   color: #fff;
 }
 
-/* Responsive styles */
+/* Responsive table styles */
 .table-responsive {
   overflow-x: auto;
   margin-top: 2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .card-title {
+    font-size: 1.3rem;
+  }
+
+  .btn {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+  }
+
+  .table td {
+    padding: 0.8rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .table-responsive {
+    margin-top: 1.5rem;
+  }
+
+  .table td {
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-header {
+    padding: 0.8rem;
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+  }
+
+  .table td {
+    padding: 0.7rem;
+  }
+
+  .btn {
+    font-size: 0.65rem;
+  }
 }
 
 @media (max-width: 576px) {
@@ -102,34 +153,16 @@
     left: 0;
     width: 50%;
     padding-left: 1rem;
-    font-weight: bold;
     text-align: left;
+    font-weight: bold;
+    color: #333;
   }
 
   .btn {
-    font-size: 2.5rem;
-    padding: 0.5rem;
-  }
-}
-
-@media (min-width: 577px) and (max-width: 768px) {
-  .table th, .table td {
-    font-size: 0.875rem;
+    font-size: 0.6rem;
   }
 
-  .btn {
-    font-size: 0.875rem;
-    padding: 0.5rem;
-  }
-}
-
-@media (min-width: 769px) {
-  .table th, .table td {
-    font-size: 1rem;
-  }
-
-  .btn {
-    font-size: 0.75rem;
-    padding: 0.25rem 0.5rem;
+  .table td {
+    font-size: 0.85rem;
   }
 }

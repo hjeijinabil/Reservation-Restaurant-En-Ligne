@@ -56,6 +56,7 @@ export class ListCommandesComponent  implements OnInit {
     this.orderService.getOrders().subscribe(
       (orders: Order[]) => {
         this.orders = orders;
+        
         console.log('gg', orders);
       },
       (error: any) => console.error('Error loading orders:', error)

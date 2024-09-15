@@ -19,13 +19,14 @@
           <option value="Cancelled">{{ 'Cancelled' | translate }}</option>
         </select>
       </p>
+      <p>      <button style="font-size: 20px; color: blue;" (click)="assignEmployeeToOrder(order)" class="btn btn-outline-secondary" >{{ 'Assign Employee' | translate }}</button>
+      </p>
     </div>
     <div class="order-footer">
-      <a class="btn btn-primary" [attr.href]="'#collapse' + order.id" role="button" data-bs-toggle="collapse" aria-expanded="false" [attr.aria-controls]="'collapse' + order.id" (click)="viewDetails(order)">
+      <a class="btn btn-primary"  [attr.href]="'#collapse' + order.id" role="button" data-bs-toggle="collapse" aria-expanded="false" [attr.aria-controls]="'collapse' + order.id" (click)="viewDetails(order)">
         {{ 'View Details' | translate }}
       </a>
-      <button (click)="deleteOrder(order.id!)" [disabled]="isAssigningEmployee" class="btn btn-outline-danger">{{ 'Delete' | translate }}</button>
-      <button (click)="assignEmployeeToOrder(order)" class="btn btn-outline-secondary">{{ 'Assign Employee' | translate }}</button>
+      <button  (click)="deleteOrder(order.id!)" [disabled]="isAssigningEmployee" class="btn btn-outline-danger">{{ 'Delete' | translate }}</button>
 
     </div>
     
@@ -41,7 +42,7 @@
           
 
           <div *ngIf="assignedEmployeeId">
-            <p style="font-size: 20px;"><strong>{{ 'Assigned Employee ID' | translate }}:</strong> {{ assignedEmployeeId }}</p>
+            <p style="font-size: 30px;"><strong style="font-size: 30px;">{{ 'Assigned Employee ID' | translate }}:</strong> {{ assignedEmployeeId }}</p>
           </div>
         </div>
       </div>
