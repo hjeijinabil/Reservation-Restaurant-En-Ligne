@@ -1,3 +1,4 @@
+<app-headerr></app-headerr>
 <app-dasboardd></app-dasboardd>
 <div class="orders-container">
   <div class="order-card" *ngFor="let order of orders">
@@ -7,11 +8,17 @@
       <h2>{{ 'Order Number' | translate }}: {{ order.id }}</h2>
     </div>
     <div class="order-body">
-      <p><strong>{{ 'Order Date' | translate }}:</strong> {{ order.orderDate }}</p>
+      <p><strong>{{ 'firstName' | translate }}:</strong> {{ order.clientName }}</p>
+
       <p><strong>{{ 'preparationDate' | translate }}:</strong> {{ order.preparationDate }}</p>
-      <p><strong>{{ 'Total Amount' | translate }}:</strong> {{ order.totalAmount }}</p>
 
-
+      <p><strong>{{ 'Order Items' | translate }}:</strong></p>
+      <ul>
+        <li *ngFor="let item of order.orderItems">
+          {{ item.name }} - {{ item.quantity }} x {{ item.price }}
+        </li>
+      </ul>
+      
       <p><strong>{{ 'Status' | translate }}:</strong>
         <select [(ngModel)]="order.status" (change)="updateOrderStatus(order.id!, order.status)">
           <option value="Pending">{{ 'Pending' | translate }}</option>
@@ -19,8 +26,16 @@
           <option value="Cancelled">{{ 'Cancelled' | translate }}</option>
         </select>
       </p>
-      <p>      <button style="font-size: 20px; color: blue;" (click)="assignEmployeeToOrder(order)" class="btn btn-outline-secondary" >{{ 'Assign Employee' | translate }}</button>
+      <p>
+        <button style="font-size: 20px; color: blue;" (click)="assignEmployeeToOrder(order)" class="btn btn-outline-secondary">
+          <!-- Check if employeeFirstName is assigned -->
+          <span *ngIf="order.employeeFirstName; else assignText">
+            {{ order.employeeFirstName }} <!-- Show employee's first name -->
+          </span>
+          <ng-template #assignText>{{ 'Assign Employee' | translate }}</ng-template>
+        </button>
       </p>
+      
     </div>
     <div class="order-footer">
       <a class="btn btn-primary"  [attr.href]="'#collapse' + order.id" role="button" data-bs-toggle="collapse" aria-expanded="false" [attr.aria-controls]="'collapse' + order.id" (click)="viewDetails(order)">

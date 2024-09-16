@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 export interface OrderItem {
@@ -12,10 +12,11 @@ export interface OrderItem {
   templateUrl: './order-confirmation-modal.component.html',
   styleUrls: ['./order-confirmation-modal.component.css']
 })
-export class OrderConfirmationModalComponent {
+export class OrderConfirmationModalComponent implements OnInit {
   orderItems: OrderItem[];
   totalPrice: number;
-  preparationDate: string = '';
+  preparationTime: string = ''; // Time selected by the user
+  preparationDate: string = ''; // Full date and time
   alertMessage: string = '';
 
   constructor(
@@ -24,6 +25,16 @@ export class OrderConfirmationModalComponent {
   ) {
     this.orderItems = data.orderItems || [];
     this.totalPrice = data.totalPrice || 0;
+  }
+
+  ngOnInit(): void {
+    this.setDefaultPreparationDate();
+  }
+
+  // Set today's date as default
+  setDefaultPreparationDate(): void {
+    const today = new Date();
+    this.preparationDate = today.toISOString().slice(0, 10); // YYYY-MM-DD format
   }
 
   changeQuantity(item: OrderItem, change: number): void {
@@ -38,13 +49,17 @@ export class OrderConfirmationModalComponent {
   }
 
   confirmOrder(): void {
-    if (!this.preparationDate) {
-      this.alertMessage = 'Please select a preparation date and time.';
+    if (!this.preparationTime) {
+      this.alertMessage = 'Please select a preparation time.';
       return;
     }
+
+    // Combine the default date with the selected time
+    const preparationDateTime = `${this.preparationDate}T${this.preparationTime}:00`;
+
     this.dialogRef.close({
       confirmed: true,
-      preparationDate: this.preparationDate
+      preparationDate: preparationDateTime
     });
   }
 

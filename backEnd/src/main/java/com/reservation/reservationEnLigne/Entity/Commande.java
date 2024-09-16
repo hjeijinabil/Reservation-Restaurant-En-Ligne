@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,11 +25,12 @@ public class Commande {
 
 
     private LocalDateTime orderDate;
-    private Date preparationDate; // New field for preparation date
+    private LocalTime preparationDate; // New field for preparation date
     private String status;
+    private String clientName;
     private Double totalAmount;
     private String employeeFirstName;
-
+private String catégories;
     @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 

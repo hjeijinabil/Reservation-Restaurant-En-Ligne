@@ -13,12 +13,14 @@ export interface Order {
   orderDate: string; // Adjust the type based on your actual date format
   totalAmount: number;
   status: string;
-  employeeFirstName?:string;
+  employeeFirstName?: string;
   preparationDate?: string;
+  orderItems?: Array<{ id: number, name: string, quantity: number, price: number }>; // Define the structure of order items
 
   employée_id?: any; // Make sure this field matches the backend response
   // Add other fields as needed
 }
+
 
 export interface Employee {
   id: number;
@@ -115,14 +117,14 @@ export class ListCommandesComponent  implements OnInit {
     if (this.isAssigningEmployee) {
       return;
     }
-
+  
     // Set the flag and message to indicate processing
     this.isAssigningEmployee = true;
     this.statusMessage = 'Assigning employee, please wait...';
-
+  
     // Fetch the username from the JWT token
     let username = this.userService.getUserName(); // Using getUserName method from AuthService
-    console.log("hh", username);
+    console.log("Logged-in username:", username);
     
     if (!username) {
       console.warn('No logged-in user found');
@@ -130,12 +132,14 @@ export class ListCommandesComponent  implements OnInit {
       this.isAssigningEmployee = false; // Reset the flag
       return;
     }
-
+  
     // Call the service method to update the order with the assigned employee (username)
     this.orderService.assignEmployeeToOrder(order.id, username).subscribe(
       response => {
-        // Handle success
-        console.log('Employee assigned successfully');
+        // Assume the backend returns the employee's first name after assigning
+        if (response && response.employeeFirstName) {
+          order.employeeFirstName = response.employeeFirstName; // Set the employee's first name on the order
+        }
         this.statusMessage = 'Employee assigned successfully'; // Set success message
         this.loadOrders(); // Refresh the orders list or update the order locally
       },
@@ -150,6 +154,7 @@ export class ListCommandesComponent  implements OnInit {
       }
     );
   }
+  
   }
   
 

@@ -4,6 +4,7 @@ import { CommandeService } from 'src/app/Services/commande.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderConfirmationModalComponent } from '../order-confirmation-modal/order-confirmation-modal.component';
+import { UserServiceService } from 'src/app/user-service.service';
 
 export interface OrderItem {
   name: string;
@@ -19,7 +20,8 @@ export interface Order {
   orderDate: string;
   orderTime: string;
   status: string;
-  totalAmount: number ;
+  totalAmount: number;
+  catégories: string;
   orderItems: OrderItem[];
   preparationDate?: string;
 }
@@ -39,6 +41,7 @@ export class MenuComponent implements OnInit {
   newOrder: Order = {
     clientName: '',
     clientEmail: '',
+    catégories: '',
     clientPhone: '',
     orderDate: '',
     orderTime: '',
@@ -53,7 +56,7 @@ export class MenuComponent implements OnInit {
   items: any[] = [];
   filteredItems: any[] = [];
   selectedCategory: string = 'all';
-  deliveryFee: number = 10;
+  deliveryFee: number = 0;
   categories: string[] = [];
   alertMessage: string | null = null;
 
@@ -61,7 +64,8 @@ export class MenuComponent implements OnInit {
     private productService: AddProductService,
     private orderService: CommandeService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private userService: UserServiceService // Inject the UserServiceService
   ) {}
 
   ngOnInit(): void {
@@ -87,7 +91,7 @@ export class MenuComponent implements OnInit {
   }
 
   addToCart(item: any): void {
-    const description = item.description; // Utilisez description comme clé
+    const description = item.description; // Use description as the key
     if (this.cart[description]) {
       this.cart[description]++;
     } else {
@@ -97,7 +101,7 @@ export class MenuComponent implements OnInit {
   }
 
   removeFromCart(item: any): void {
-    const description = item.description; // Utilisez description comme clé
+    const description = item.description; // Use description as the key
     if (this.cart[description]) {
       this.cart[description]--;
       if (this.cart[description] === 0) {
@@ -108,7 +112,7 @@ export class MenuComponent implements OnInit {
   }
 
   getItemQuantity(item: any): number {
-    return this.cart[item.description] || 0; // Utilisez description comme clé
+    return this.cart[item.description] || 0; // Use description as the key
   }
 
   calculateTotal(): void {
@@ -122,7 +126,7 @@ export class MenuComponent implements OnInit {
     const dialogRef = this.dialog.open(OrderConfirmationModalComponent, {
       data: {
         orderItems: Object.keys(this.cart).map(description => ({
-          name: description, // Utilisez description comme nom
+          name: description,
           quantity: this.cart[description],
           price: this.filteredItems.find(i => i.description === description)?.price || 0
         })),
@@ -130,52 +134,67 @@ export class MenuComponent implements OnInit {
         deliveryFee: this.deliveryFee
       }
     });
-
+  
     dialogRef.afterClosed().subscribe((result: OrderConfirmationResult) => {
       if (result?.confirmed) {
+        const clientName = this.userService.getUserName() || 'Inconnu';
+  
         const newOrder: Order = {
-          clientName: '',
+          clientName: clientName,
           clientEmail: '',
+          catégories: '',
           clientPhone: '',
           orderDate: new Date().toISOString(),
           orderTime: new Date().toISOString(),
-          status: 'Pending',
+          status: 'En attente',
           totalAmount: this.totalPrice + this.deliveryFee,
           orderItems: Object.keys(this.cart).map(description => ({
-            name: description, // Utilisez description comme nom
+            name: description,
             quantity: this.cart[description],
             price: this.filteredItems.find(i => i.description === description)?.price || 0
           })),
           preparationDate: result.preparationDate
         };
-
+  
         if (this.orderService.isAuthenticated()) {
           this.orderService.placeOrder(newOrder).subscribe(
             (order: any) => {
-              console.log('Order placed successfully:', order);
+              console.log('Commande passée avec succès:', order);
               this.resetCart();
-
+  
+              // Accédez à l'ID de la commande
+              const orderId = order.id;
+  
               if (result.preparationDate) {
                 const prepDate = new Date(result.preparationDate);
                 const now = new Date();
                 const timeToAlert = prepDate.getTime() - 5 * 60 * 1000 - now.getTime();
                 const alertDate = new Date(prepDate.getTime() - 5 * 60 * 1000).toLocaleString();
-                this.alertMessage = `شكرا لاختيارك مطعمنا. نحن نتطلع إلى خدمتك في الموعد المحدد لك. ${alertDate || 'Not specified'}`;
+  
+                let orderDetails = newOrder.orderItems.map(item =>
+                  `${item.name}: ${item.quantity} x ${item.price} D`
+                ).join(', ');
+  
+                // Inclure l'ID de la commande dans le message d'alerte
+                this.alertMessage = `Merci d'avoir choisi notre restaurant AlOstedh. Votre commande ID ${orderId} a été reçue. Nous avons hâte de vous servir à l'heure prévue, à ${alertDate}. Détails de la commande : ${orderDetails}`;
               }
             },
             (error: any) => {
-              console.error('Error placing order:', error);
-              this.alertMessage = 'There was an issue placing your order. Please try again later.';
+              console.error('Erreur lors de la passation de la commande:', error);
+              this.alertMessage = 'Il y a eu un problème lors de la passation de votre commande. Veuillez réessayer plus tard.';
             }
           );
         } else {
           this.router.navigate(['/login']);
         }
       } else {
-        console.log('Order was not confirmed');
+        console.log('La commande n\'a pas été confirmée');
       }
     });
   }
+  
+  
+  
 
   resetCart(): void {
     this.cart = {};

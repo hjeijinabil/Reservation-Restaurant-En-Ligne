@@ -1,9 +1,9 @@
 <div class="modal-container">
   <div class="modal-content">
-    <h2> {{ 'Confirm Your Order' | translate }}</h2>
-    <p><strong>{{'Order Details'| translate}}</strong></p>
+    <h2>{{ 'Confirm Your Order' | translate }}</h2>
+    <p><strong>{{ 'Order Details' | translate }}</strong></p>
     <div class="order-details">
-      <p><strong>{{'Items' | translate}}</strong></p>
+      <p><strong>{{ 'Items' | translate }}</strong></p>
       <ul>
         <li *ngFor="let item of orderItems">
           {{ item.name }} - 
@@ -13,15 +13,15 @@
           x {{ item.price }}D
         </li>
       </ul>
-      <p><strong>{{'Total Price' | translate}}</strong> {{ totalPrice }}D</p>
-      <p><strong>{{'Preparation Date and Time' | translate}}</strong>
-        <input type="datetime-local" [(ngModel)]="preparationDate"  />
+      <p><strong>{{ 'Total Price' | translate }}</strong> {{ totalPrice }}D</p>
+      <p><strong>{{ 'Preparation Time' | translate }}</strong>
+        <input type="time" [(ngModel)]="preparationTime" />
       </p>
       <p *ngIf="alertMessage">{{ alertMessage }}</p>
     </div>
     <div class="modal-actions">
-      <button (click)="confirmOrder()" class="btn btn-primary">{{'Confirm' | translate }}</button>
-      <button (click)="cancelOrder()" class="btn btn-secondary">{{'Cancel' | translate}}</button>
+      <button (click)="confirmOrder()" class="btn btn-primary">{{ 'Confirm' | translate }}</button>
+      <button (click)="cancelOrder()" class="btn btn-secondary">{{ 'Cancel' | translate }}</button>
     </div>
   </div>
 </div>
