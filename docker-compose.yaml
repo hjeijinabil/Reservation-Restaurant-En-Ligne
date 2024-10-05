@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  reservationenligne:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8087:8087"
+    environment:
+      SPRING_APPLICATION_NAME: reservationEnLigne
+      SPRING_JPA_SHOW_SQL: true
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ReservationEnLigne?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      UPLOAD_DIR: ./src/main/resources/images
+      SERVER_ERROR_INCLUDE_MESSAGE: always
+      SERVER_ERROR_INCLUDE_STACKTRACE: always
+      SPRING_OUTPUT_ANSI_ENABLED: always
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ReservationEnLigne
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  frontend:
+    build:
+      context: ./frontend # Change this to the path of your frontend Dockerfile
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - reservationenligne
+
+volumes:
+  mysql-data: {}

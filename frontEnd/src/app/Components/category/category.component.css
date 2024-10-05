@@ -1,8 +1,0 @@
-.row img {
-    width: 100%; /* Make image fill the container */
-    height: 500px; /* Set a fixed height */
-    object-fit: cover; /* Ensure the image covers the area without distortion */
-  }
-  .gallery-box{
-    padding: 100px;
-  }

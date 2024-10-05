@@ -40,14 +40,16 @@ public class JwtService {
         return resolver.apply(claims);
     }
 
+    @SuppressWarnings("deprecation")
     private Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder()
+        return Jwts.parser()
                 .setSigningKey(getSigninKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
     }
 
+    @SuppressWarnings("deprecation")
     public String generateToken(User user) {
         String roleAsString = user.getRole().name(); // Convert enum to String
 

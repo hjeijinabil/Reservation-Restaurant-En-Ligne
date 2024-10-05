@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reservation-restaurant-deployment
+  labels:
+    app: reservation-restaurant
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: reservation-restaurant
+  template:
+    metadata:
+      labels:
+        app: reservation-restaurant
+    spec:
+      containers:
+        - name: reservation-restaurant
+          image: nabilhjeiji/frontend-reservation-restaurant
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: regcred # Inclure si vous utilisez un registre privé
